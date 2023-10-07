@@ -1,10 +1,34 @@
 #include <gtest/gtest.h>
 #include "asset_id.h"
+#include <string>
 
-// Demonstrate some basic assertions.
-TEST(Dexory, BasicAssertions) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
+
+TEST(AssetIDTest, CreatingAssetIDWithNumericalDigitsSucceeds) {
+  AssetID("123");
+}
+
+TEST(AssetID, CreatingAssetIDWithEmptyDigitsThrowsException) {
+  
+  EXPECT_THROW({
+        try{
+            AssetID("");
+        }
+        catch(const std::invalid_argument& e){
+            EXPECT_STREQ( "empty digit value", e.what() );
+            throw;
+        }
+    }, std::invalid_argument );
+}
+
+TEST(AssetID, CreatingAssetIDWithNonNumericalDigitsThrowsException) {
+  
+  EXPECT_THROW({
+        try{
+            AssetID("1a");
+        }
+        catch(const std::invalid_argument& e){
+            EXPECT_STREQ( "non numeric digit value", e.what() );
+            throw;
+        }
+    }, std::invalid_argument );
 }

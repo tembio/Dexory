@@ -3,7 +3,5 @@
 #include "asset_id.h"
 
 int main(){
-    auto a=AssetID();
-
-    std::cout<<a.getDigits()<<std::endl;
+    AssetID("123");
 }

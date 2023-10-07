@@ -17,13 +17,12 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 
-# Project sources
+# Project
 set(SOURCES
     src/asset_id.cpp
-    src/main.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} src/main.cpp ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}
     PRIVATE
@@ -35,7 +34,7 @@ set(TESTS
     test/test_asset_id.cpp
 )
 
-add_executable(${PROJECT_NAME}_tests ${TESTS})
+add_executable(${PROJECT_NAME}_tests ${TESTS} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME}_tests
     PRIVATE
@@ -49,6 +48,7 @@ target_link_libraries(
 
 enable_testing()
 gtest_discover_tests(${PROJECT_NAME}_tests)
+
 
 
 

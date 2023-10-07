@@ -9,5 +9,8 @@ class AssetID{
     std::vector<unsigned char> segmentRepresentation;
     
     public:
-    std::string getDigits() const;
+    AssetID(const std::string& digits);
+
+    private:
+    bool is_number(const std::string& s);
 };
