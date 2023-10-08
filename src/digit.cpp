@@ -1,6 +1,6 @@
-#include "digit.h"
 #include <string>
 #include <array>
+#include "digit.h"
 
 constexpr std::array<std::byte, 10> segmentRepresentation = {
     std::byte{0b01110111}, //0
