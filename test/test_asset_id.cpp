@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
+#include <gmock/gmock.h>
+#include "mock_exporter.h"
 #include "asset_id.h"
-#include <string>
-
 
 TEST(AssetIDTest, CreatingAssetIDWithNumericalDigits) {
-  AssetID("123");
+  AssetID("1234");
 }
 
 TEST(AssetID, CreatingAssetIDWithEmptyDigitsThrowsException) {
@@ -49,11 +49,18 @@ TEST(AssetID, checksum) {
   EXPECT_EQ(56, AssetID("1337").checksum());
 }
 
-TEST(AssetID, pngCreatesCorrectPNGFile) {
-  AssetID("1337").png(std::cout);
-  EXPECT_EQ(1,2);
-  Hacer que PNG sea una clase exporter?? o solo metodo?
+TEST(AssetID, exportIDCallExporterWithCorrectBytes) {
+  MockExporter<int> exporter;
+  std::vector<std::byte> expectedBytes{
+    std::byte{0b11010101},
+    std::byte{0b11110101},
+    std::byte{0b01000010},
+    std::byte{0b11010110},
+    std::byte{0b11010110},
+    std::byte{0b01000110}
+  };
 
+  EXPECT_CALL(exporter, exportBytes(expectedBytes));
 
-
+  AssetID("1337").exportID(&exporter);
 }
