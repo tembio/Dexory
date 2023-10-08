@@ -46,6 +46,7 @@ target_include_directories(${PROJECT_NAME}_tests
 target_link_libraries(
   ${PROJECT_NAME}_tests
   GTest::gtest_main
+  GTest::gmock_main
 )
 
 enable_testing()
