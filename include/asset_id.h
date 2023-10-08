@@ -23,6 +23,6 @@ class AssetID{
             bytes.emplace_back(digit.SevenSegmentBits());
         }
 
-        return exporter->exportBytes(bytes);
+        return exporter->exportData(bytes);
     }
 };

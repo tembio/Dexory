@@ -6,5 +6,5 @@
 template<typename T>
 class Exporter{
     public:
-    virtual T exportBytes(const std::vector<std::byte>& bytes) const = 0;
+    virtual T exportData(const std::vector<std::byte>& bytes) const = 0;
 };

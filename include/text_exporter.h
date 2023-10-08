@@ -4,5 +4,5 @@
 
 class TextExporter : Exporter<std::string> {
     public:
-    std::string exportBytes(const std::vector<std::byte>& bytes) const override;
+    std::string exportData(const std::vector<std::byte>& bytes) const override;
 };

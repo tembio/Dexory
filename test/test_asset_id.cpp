@@ -60,7 +60,7 @@ TEST(AssetID, exportIDCallExporterWithCorrectBytes) {
     std::byte{0b01000110}
   };
 
-  EXPECT_CALL(exporter, exportBytes(expectedBytes));
+  EXPECT_CALL(exporter, exportData(expectedBytes));
 
   AssetID("1337").exportID(&exporter);
 }

@@ -12,5 +12,5 @@ TEST(TextExporterTest, CreatingFromChar) {
   };
 
   TextExporter t;
-  EXPECT_EQ("110101011111010101000010110101101101011001000110", t.exportBytes(bytes));
+  EXPECT_EQ("110101011111010101000010110101101101011001000110", t.exportData(bytes));
 }
