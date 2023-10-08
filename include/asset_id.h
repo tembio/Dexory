@@ -23,9 +23,6 @@ class AssetID{
             bytes.emplace_back(digit.SevenSegmentBits());
         }
 
-        // for (auto b : pngBytes){
-        //     std::cout<<std::bitset<8>(std::to_integer<int>(b))<<std::endl;
-        // }
         return exporter->exportBytes(bytes);
     }
 };

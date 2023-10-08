@@ -21,6 +21,7 @@ FetchContent_MakeAvailable(googletest)
 set(SOURCES
     src/asset_id.cpp
     src/digit.cpp
+    src/text_exporter.cpp
 )
 
 add_executable(${PROJECT_NAME} src/main.cpp ${SOURCES})
@@ -34,6 +35,7 @@ target_include_directories(${PROJECT_NAME}
 set(TESTS
     test/test_asset_id.cpp
     test/test_digit.cpp
+    test/test_text_exporter.cpp
 )
 
 add_executable(${PROJECT_NAME}_tests ${TESTS} ${SOURCES})
