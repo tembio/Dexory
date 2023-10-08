@@ -8,7 +8,6 @@ TEST(AssetIDTest, CreatingAssetIDWithNumericalDigits) {
 }
 
 TEST(AssetID, CreatingAssetIDWithEmptyDigitsThrowsException) {
-  
   EXPECT_THROW({
         try{
             AssetID("");
@@ -20,24 +19,24 @@ TEST(AssetID, CreatingAssetIDWithEmptyDigitsThrowsException) {
     }, std::invalid_argument );
 }
 
-TEST(AssetID, CreatingAssetIDLongerThan4DigitsThrowsException) {
-  
-  EXPECT_THROW({
-        try{
-            AssetID("12345");
-        }
-        catch(const std::invalid_argument& e){
-            EXPECT_STREQ( "asset ID longer than 4 digits", e.what() );
-            throw;
-        }
-    }, std::invalid_argument );
+TEST(AssetID, CreatingAssetIDWithIncorrectNumberOfDigitsThrowsException) {
+  for(auto testCase : {"1","12345"}){
+    EXPECT_THROW({
+          try{
+              AssetID{testCase};
+          }
+          catch(const std::invalid_argument& e){
+              EXPECT_STREQ( "asset ID does not have 4 digits", e.what() );
+              throw;
+          }
+      }, std::invalid_argument );
+  }
 }
 
 TEST(AssetID, CreatingAssetIDWithNonNumericalDigitsThrowsException) {
-  
   EXPECT_THROW({
         try{
-            AssetID("1a");
+            AssetID("1a12");
         }
         catch(const std::invalid_argument& e){
             EXPECT_STREQ( "non numeric digit value", e.what() );
@@ -51,7 +50,10 @@ TEST(AssetID, checksum) {
 }
 
 TEST(AssetID, pngCreatesCorrectPNGFile) {
-
   AssetID("1337").png(std::cout);
   EXPECT_EQ(1,2);
+  Hacer que PNG sea una clase exporter?? o solo metodo?
+
+
+
 }

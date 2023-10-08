@@ -12,8 +12,8 @@ AssetID::AssetID(const std::string& digitsStr) {
         throw std::invalid_argument("empty asset ID");
     }
 
-    if(digitsStr.size()>4){
-        throw std::invalid_argument("asset ID longer than 4 digits");
+    if(digitsStr.size()!=4){
+        throw std::invalid_argument("asset ID does not have 4 digits");
     }
 
     for(const auto digit: digitsStr){
