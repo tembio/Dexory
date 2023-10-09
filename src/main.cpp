@@ -4,43 +4,39 @@
 #include "asset_id.h"
 #include "png_exporter.h"
 
-std::vector<AssetID> loadAssetIDs(std::ifstream& numbersFile);
+std::vector<AssetID> loadAssetIDs(const std::filesystem::path& inputFilePath);
 void displayResults(const std::vector<AssetID>& assetIDs);
-void generatePNGFiles(const std::vector<AssetID>& assetIDs, const std::string& outputDirectory);
+void generatePNGFiles(const std::vector<AssetID>& assetIDs,const std::filesystem::path& outputDirectory);
 
 
 int main(int argc, char* argv[]){
-
-    HANDLE PATH JONIERS MULTIPLATFORM!!!
     if(argc != 3){
        std::cout << "usage: " << argv[0] << " <input_filename_path> <output_directory_path>" << std::endl;
        exit(1);
     }
-    auto inputFilePath = std::string(argv[1]);
-    auto outputDirectory = "./";//std::string(argv[2]);
-    //../resources/test.txt
-    std::ifstream numbersFile(inputFilePath);
-    if(!numbersFile){
+    auto inputFilePath = std::filesystem::path(argv[1]);
+    auto outputDirectory = std::filesystem::path(argv[2]);
+
+    auto assetIDs = loadAssetIDs(inputFilePath);
+    displayResults(assetIDs);
+
+    generatePNGFiles(assetIDs, outputDirectory);
+    std::cout<<"PNG images generated in directory: "<<outputDirectory.string()<<std::endl<<std::endl;
+}
+
+std::vector<AssetID> loadAssetIDs(const std::filesystem::path& inputFilePath){
+    std::ifstream input(inputFilePath.string());
+    if(!input){
         std::cerr<<"could not open numbers file"<<std::endl;
         exit(1);
     }
 
-    auto assetIDs = loadAssetIDs(numbersFile);
-    displayResults(assetIDs);
-
-    generatePNGFiles(assetIDs, outputDirectory);
-    std::cout<<"PNG images generated!"<<std::endl<<std::endl;
-
-   
-}
-
-std::vector<AssetID> loadAssetIDs(std::ifstream& numbersFile){
     std::vector<AssetID> assetIDs;
 
     try{
-        while(numbersFile.good()){
+        while(input.good()){
             std::string number;
-            numbersFile >> number;
+            input >> number;
             if(!number.empty())
                 assetIDs.emplace_back(AssetID{number});
         }
@@ -62,11 +58,12 @@ void displayResults(const std::vector<AssetID>& assetIDs){
     std::cout << std::endl; 
 }
 
-void generatePNGFiles(const std::vector<AssetID>& assetIDs, const std::string& outputDirectory){
+void generatePNGFiles(const std::vector<AssetID>& assetIDs,const std::filesystem::path& outputDirectory){
     auto exporter = PNGExporter();
-
     for(const auto& assetID : assetIDs){
         auto img = assetID.exportID(&exporter);
-        cv::imwrite(assetID.str()+".png", img);
+        auto outputDirectoryCpy = outputDirectory;
+        auto outputPath = outputDirectoryCpy /= (assetID.str()+".png");
+        cv::imwrite(outputPath.string(), img);
     }  
 }
