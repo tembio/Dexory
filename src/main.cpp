@@ -24,6 +24,8 @@ int main(int argc, char* argv[]){
     std::cout<<"PNG images generated in directory: "<<outputDirectory.string()<<std::endl<<std::endl;
 }
 
+
+
 std::vector<AssetID> loadAssetIDs(const std::filesystem::path& inputFilePath){
     std::ifstream input(inputFilePath.string());
     if(!input){
