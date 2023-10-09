@@ -1,15 +1,17 @@
 #pragma once
 
-#include <iostream>
+#include <string>
 #include "digit.h"
 #include "exporter.h"
 
 class AssetID{
     std::vector<Digit> digits;
+    std::string strValue;
     
     public:
     AssetID(const std::string& digitsStr);
     unsigned char checksum() const;
+    inline std::string str() const {return strValue;};
     
     template<typename T>
     T exportID(const Exporter<T>* exporter) const {

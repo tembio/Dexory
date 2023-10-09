@@ -13,6 +13,8 @@ AssetID::AssetID(const std::string& digitsStr) {
     for(const auto digit: digitsStr){
       digits.emplace_back(Digit{digit});
     }
+
+    strValue = digitsStr;
 }
 
 unsigned char AssetID::checksum() const{

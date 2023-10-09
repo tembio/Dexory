@@ -2,7 +2,7 @@
 
 #include "exporter.h"
 
-class TextExporter : Exporter<std::string> {
+class TextExporter : public Exporter<std::string> {
     public:
     std::string exportData(const std::vector<std::byte>& bytes) const override;
 };

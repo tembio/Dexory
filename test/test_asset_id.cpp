@@ -45,6 +45,11 @@ TEST(AssetID, CreatingAssetIDWithNonNumericalDigitsThrowsException) {
     }, std::invalid_argument );
 }
 
+TEST(AssetID, str) {
+  auto assetID = AssetID("1337");
+  EXPECT_EQ("1337", assetID.str());
+}
+
 TEST(AssetID, checksum) {
   EXPECT_EQ(56, AssetID("1337").checksum());
 }
